@@ -369,7 +369,10 @@ public class Client
     {
         // This is where we could handle all the clients changes
 
-        captureNextPacket();
+        // The client sends 5 packets at a time, so we'll take 5 to stop them queueing up
+        for (int i = 0; i < 5; i++) {
+            captureNextPacket();
+        }
     }
 
     public void login(String username, String password) throws AlreadyLoggedIn, BadLogin, CharacterNotFound, CharacterBanned
