@@ -46,7 +46,6 @@ public class Game implements Runnable
             } else {
                 try {
                     long sleepTime = TICK_TIME - (time_end - time_start);
-                    System.out.println(sleepTime);
                     Thread.sleep(sleepTime);
                 } catch (InterruptedException ie) {
                     // Don't do anything
