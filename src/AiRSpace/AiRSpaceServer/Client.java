@@ -223,9 +223,16 @@ public class Client
             adjustedPacketSize--;
 
             // Grab the next byte
-            int connectionStatus = inStream.readUnsignedByte();
+            int remainingPacket = inStream.readUnsignedByte();
 
             // If that value isn't equal to the packet size tell them to go away
+            if (remainingPacket != adjustedPacketSize) {
+                System.out.println("Encrypted packet data is not what they said it would be.");
+                ClientHandler.kick(slot);
+                return;
+            }
+
+            int connectionStatus = inStream.readUnsignedByte();
             if (connectionStatus != 10) {
                 System.out.println("Encrypted packet data is not what they said it would be.");
                 ClientHandler.kick(slot);
