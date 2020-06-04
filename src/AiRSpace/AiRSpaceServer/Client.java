@@ -264,19 +264,19 @@ public class Client
             username = username.replaceAll("'", "");
 
             // Store the session keys for encrypting and decrypting
-            int session_key[] = new int[4];
-            session_key[0] = (int) (clientSessionKey >> 32);
-            session_key[1] = (int) clientSessionKey;
-            session_key[2] = (int) (serverSessionKey >> 32);
-            session_key[3] = (int) serverSessionKey;
-            inStreamDecryption = new IsaacCipher(session_key);
+            int sessionKey[] = new int[4];
+            sessionKey[0] = (int) (clientSessionKey >> 32);
+            sessionKey[1] = (int) clientSessionKey;
+            sessionKey[2] = (int) (serverSessionKey >> 32);
+            sessionKey[3] = (int) serverSessionKey;
+            inStreamDecryption = new IsaacCipher(sessionKey);
 
-            // Add 50 because that's the client does don't change or everything breaks
+            // Add 50 because that's the client does - don't change or everything breaks
             for (int i = 0; i < 4; i++) {
-                session_key[i] += 50;
+                sessionKey[i] += 50;
             }
 
-            outStreamDecryption = new IsaacCipher(session_key);
+            outStreamDecryption = new IsaacCipher(sessionKey);
             outStream.packetEncryption = outStreamDecryption;
 
             // Let's get and send back a response code
