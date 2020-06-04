@@ -206,7 +206,7 @@ public class Client
             }
 
             // Require the client version to be 317
-            int clientVersion = inStream.readUnsignedByte();
+            int clientVersion = inStream.readUnsignedWord();
             if (clientVersion != 317) {
                 ClientHandler.kick(slot);
                 return;
