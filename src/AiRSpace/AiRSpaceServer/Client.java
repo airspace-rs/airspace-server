@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Client
 {
@@ -739,14 +740,19 @@ public class Client
             }
 
             offset = readPointer;
-            if (writePointer >= readPointer) numBytesInBuffer = writePointer - readPointer;
-            else numBytesInBuffer = bufferSize - readPointer;
+            if (writePointer >= readPointer) {
+                numBytesInBuffer = writePointer - readPointer;
+            } else {
+                numBytesInBuffer = bufferSize - readPointer;
+            }
         }
         if (numBytesInBuffer > 0) {
             try {
                 out.write(buffer, offset, numBytesInBuffer);
                 readPointer = (readPointer + numBytesInBuffer) % bufferSize;
                 if (writePointer == readPointer) out.flush();
+            } catch (SocketException socketException) {
+                ClientHandler.kick(slot);
             } catch (java.lang.Exception __ex) {
                 __ex.printStackTrace();
             }
