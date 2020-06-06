@@ -1,7 +1,7 @@
 AiRSpace Server
 ---
 
-AiRSpace is a server application written in Java designed to support the Runescape 317 client protocol.
+AiRSpace is a server application written in Java designed to support the Runescape 317 Client protocol.
 
 # Ambitions
 
@@ -10,7 +10,7 @@ AiRSpace is a server application written in Java designed to support the Runesca
 
 (later)
 
-- Support multiple version of the Runescape client (317, 508 etc).
+- Support multiple version of the Runescape Client (317, 508 etc).
 
 # Contributing
 
