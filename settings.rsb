@@ -1,11 +1,11 @@
 # Main Settings
 Name AiRSpace
 ServerPort 43594
-MaxPlayers 256
+MaxPlayers 2
 
 # Database Settings
 DBHostname localhost
 DBPort 3306
 DBUsername root
 DBPassword root
-DBDatabase airspace
+DBDatabase rsberry

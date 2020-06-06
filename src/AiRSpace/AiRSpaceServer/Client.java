@@ -228,7 +228,7 @@ public class Client
 
             // If that value isn't equal to the packet size tell them to go away
             if (remainingPacket != adjustedPacketSize) {
-                System.out.println("Encrypted packet data is not what they said it would be.");
+                System.out.println("Adjusted packet size is " + adjustedPacketSize);
                 ClientHandler.kick(slot);
                 return;
             }
