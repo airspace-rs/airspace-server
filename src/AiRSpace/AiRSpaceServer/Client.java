@@ -459,6 +459,10 @@ public class Client
     public static final int PACKET_TYPE_GUI_BUTTON_CLICK = 185;
     public static final int PACKET_TYPE_CLICK = 241;
 
+    public static final int MAX_WALK_STEPS = 50;
+    public int[] walkQueueX = new int[MAX_WALK_STEPS];
+    public int[] walkQueueY = new int[MAX_WALK_STEPS];
+
     private void parseCurrentPacket()
     {
         // Todo add proper packet router
@@ -469,6 +473,32 @@ public class Client
                 break;
 
             case PACKET_TYPE_CAMERA_MOVED:
+
+                break;
+
+            case PACKET_TYPE_WALK:
+                int walkCommandSteps = packetSize - 5;
+                if (walkCommandSteps > MAX_WALK_STEPS) { // Can't walk that far
+                    walkCommandSteps = 0;
+                }
+
+                int firstStepX = inStream.readUnsignedWordBigEndianA();
+                firstStepX -= character.getX() % 8;
+
+                for (int i = 1; i < walkCommandSteps; i++) {
+                    walkQueueX[i] = inStream.readSignedByte();
+                    walkQueueY[i] = inStream.readSignedByte();
+                }
+
+                int firstStepY = inStream.readUnsignedWordBigEndian();
+                firstStepY -= character.getY() % 8;
+
+                for (int i = 0; i < walkCommandSteps; i++) {
+                    walkQueueX[i] += firstStepX;
+                    walkQueueY[i] += firstStepY;
+                }
+
+                boolean running = inStream.readSignedByteC() == 1;
 
                 break;
 
